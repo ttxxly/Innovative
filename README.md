@@ -26,12 +26,6 @@ layui | 前端框架  | [http://layer.layui.com/](http://layer.layui.com/)
 ace | 前端框架  | [http://ace.jeka.by/](http://ace.jeka.by/)
 
 
-#### 项目页面效果
-![](https://gitee.com/zhanghejie/Innovative/raw/master/doc/img/page1.png)
-![](https://gitee.com/zhanghejie/Innovative/raw/master/doc/img/page2.png)
-![](https://gitee.com/zhanghejie/Innovative/raw/master/doc/img/page3.png)
-![](https://gitee.com/zhanghejie/Innovative/raw/master/doc/img/page4.png)
-![](https://gitee.com/zhanghejie/Innovative/raw/master/doc/img/page5.png)
 
 
 #### 安装教程
@@ -39,14 +33,3 @@ ace | 前端框架  | [http://ace.jeka.by/](http://ace.jeka.by/)
 1. 安装jdk1.8+、tomcat6+、mysql5.5+
 2. 下载代码并初始化数据库doc/db/jeexjj_db.sql
 3. 发布运行项目
-
-#### JEEXJJ开源项目
- 名称 | 地址
-------|----
-快速开发框架  | [https://gitee.com/zhanghejie/jeexjj](https://gitee.com/zhanghejie/jeexjj)
-小程序商城  | [https://gitee.com/jeexjj/jeexjj_wxmall](https://gitee.com/jeexjj/jeexjj_wxmall)
-VUE仿锤子商城  | [https://gitee.com/zhanghejie/jeexjj_mall](https://gitee.com/zhanghejie/jeexjj_mall)
-防CAS单点登陆  | [https://gitee.com/zhanghejie/jeexjj_sso](https://gitee.com/zhanghejie/jeexjj_sso)
-安国众鹿丰商贸有限公司官网  | [https://gitee.com/zhanghejie/jeexjj_hbclfsm](https://gitee.com/zhanghejie/jeexjj_hbclfsm)
-#### 特别感谢赞助
-安国众鹿丰商贸有限公司[https://www.hbclfsm.com/](https://www.hbclfsm.com/)
