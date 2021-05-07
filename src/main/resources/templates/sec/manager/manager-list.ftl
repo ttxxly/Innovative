@@ -4,7 +4,7 @@
 		<tr>
 			 <th><input type="checkbox" class="bscheckall"></th>
 			<th>账号</th>
-			<th>用户类型</th>
+			<#--<th>用户类型</th>-->
 			<th>姓名</th>
 			<th>手机</th>
 			<th>邮箱</th>
@@ -19,11 +19,11 @@
 		<tr>
 			<td><input type="checkbox" class="bscheck" data="id:${user.id}"></td>
 			<td>${user.loginName}</td>
-			<td>
+			<#--<td>
 				<#if user.userType??>
 					${XJJDict.getText(user.userType)}
 				</#if>
-			</td>
+			</td>-->
 			<td>${user.userName}</td>
 			<td>${user.mobile}</td>
 			<td>${user.email}</td>

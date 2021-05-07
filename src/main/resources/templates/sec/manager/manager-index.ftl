@@ -27,6 +27,8 @@
 	<@button type="info" icon="glyphicon glyphicon-plus" onclick="XJJ.add('${base}/sec/manager/input','添加用户','${tabId}');">增加</@button>
 	<@button type="purple" icon="fa fa-pencil" onclick="XJJ.edit('${base}/sec/manager/input','修改用户','${tabId}');">修改</@button>
 	<@button type="danger" icon=" fa fa-trash-o" onclick="XJJ.del('${base}/sec/manager/delete','删除用户？',true,{id:'${tabId}'});">删除</@button>
-	
-	<@button type="grey" icon="fa fa-cloud-upload">上传</@button>
+
+	<@button type="info" icon="fa fa-pencil" onclick="XJJ.edit('${base}/sec/manager/lock','锁定用户','${tabId}');">锁定</@button>
+	<@button type="info" icon="fa fa-pencil" onclick="XJJ.edit('${base}/sec/manager/unlock','解锁用户','${tabId}');">解锁</@button>
+	<@button type="info" icon="fa fa-pencil" onclick="XJJ.edit('${base}/sec/manager/reset','重置用户密码','${tabId}');">重置密码</@button>
 </@content>

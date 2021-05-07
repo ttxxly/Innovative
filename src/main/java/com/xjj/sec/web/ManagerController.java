@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.xjj.framework.utils.EncryptUtils;
 import com.xjj.framework.web.ManagerInfo;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,87 @@ public class ManagerController extends SpringControllerSupport{
 		
 		return getViewPath("input");
 	}
-	
+
+
+	/**
+	 * 添加用户
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/lock")
+	public @ResponseBody XjjJson  lock(@ModelAttribute XjjUser user){
+
+		XjjUser byId = userService.getById(user.getId());
+		byId.setStatus(user.getStatus());
+		userService.update(byId);
+		return XjjJson.success("保存成功");
+	}
+
+
+	/*
+	 * 修改用户
+	 */
+	@SecEdit
+	@RequestMapping("/lock/{id}")
+	public String lockId(@PathVariable("id") Long id, Model model){
+		XjjUser user = userService.getById(id);
+		model.addAttribute("user",user);
+		return getViewPath("lock");
+	}
+
+
+	/**
+	 * 添加用户
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/unlock")
+	public @ResponseBody XjjJson  unlock(@ModelAttribute XjjUser user){
+
+		XjjUser byId = userService.getById(user.getId());
+		byId.setStatus(user.getStatus());
+		userService.update(byId);
+		return XjjJson.success("保存成功");
+	}
+
+
+
+	/*
+	 * 修改用户
+	 */
+	@SecEdit
+	@RequestMapping("/unlock/{id}")
+	public String unlockId(@PathVariable("id") Long id, Model model){
+		XjjUser user = userService.getById(id);
+		model.addAttribute("user",user);
+		return getViewPath("unlock");
+	}
+
+	/**
+	 * 添加用户
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/reset")
+	public @ResponseBody XjjJson  reset(@ModelAttribute XjjUser user){
+
+		XjjUser byId = userService.getById(user.getId());
+		byId.setPassword(EncryptUtils.MD5Encode(user.getPassword()));
+		userService.update(byId);
+		return XjjJson.success("重置密码为12345678成功!");
+	}
+
+	/*
+	 * 修改用户
+	 */
+	@SecEdit
+	@RequestMapping("/reset/{id}")
+	public String resetId(@PathVariable("id") Long id, Model model){
+		XjjUser user = userService.getById(id);
+		model.addAttribute("user",user);
+		return getViewPath("reset");
+	}
+
 	/*
 	 * 修改用户
 	 */
@@ -157,7 +238,6 @@ public class ManagerController extends SpringControllerSupport{
 		}
 		return XjjJson.success("保存成功");
 	}
-	
 
 	@RequestMapping(value = "/{userId}/detail", method = RequestMethod.POST)
 	public String detail(@PathVariable("userId") Long userId, Model model) {

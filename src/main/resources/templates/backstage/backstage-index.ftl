@@ -180,8 +180,8 @@
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							<span class="blue bolder">XJJ</span>
-							Application &copy; 2018-2028
+							<span class="blue bolder">创新创业管理系统</span>
+							Application &copy; 2018-2021
 						</span>
 						<#--
 						&nbsp; &nbsp;
