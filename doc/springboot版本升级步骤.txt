@@ -1,0 +1,35 @@
+将springboot版本从1.5.9升级到2.1.4
+
+一、pom.xml修改
+
+1，修改springboot版本，修改后如下
+	<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.4.RELEASE</version>
+    </parent>
+2，将jdk从1.7修改成1.8，修改后如下
+
+	<java.version>1.8</java.version>
+	
+3，将commons-collections的依赖引用修改成如下
+
+	<dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-collections4</artifactId>
+          <version>4.1</version>
+    </dependency>
+
+二、java文件修改
+
+1，Function.java ： 将import org.apache.commons.collections.CollectionUtils；改成 import org.apache.commons.collections4.CollectionUtils;
+
+2，LocalizedTextContext.java ： 将  RequestContextUtils.getWebApplicationContext(request);  改成 (WebApplicationContext)RequestContextUtils.getLocaleResolver(request);
+
+3，Application.java ： 将 import org.springframework.boot.web.support.SpringBootServletInitializer; 
+					 改成 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+
+三、application.properties 配置文件修改
+
+1，将 server.context-path=/jeexjj 修改成 server.servlet.context-path=/jeexjj 

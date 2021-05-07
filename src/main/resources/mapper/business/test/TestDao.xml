@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjj.business.test.dao.TestDao">
+	<select id="getById" resultType="TestEntity" parameterType="long">
+		SELECT
+			*
+		FROM
+			t_sec_test
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findAll" resultType="TestEntity">
+		SELECT * FROM t_sec_test
+	</select>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.xjj.business.test.entity.TestEntity">
+		insert into t_sec_test(ID,TITLE,CODE,DESCRIPTION,status)
+    	values(#{id},#{title},#{code},#{description},#{status})
+	</insert>
+	
+	<update id="update" parameterType="TestEntity">  
+        UPDATE t_sec_test SET 
+             ID = #{id},
+             TITLE = #{title},
+             CODE = #{code},
+             DESCRIPTION = #{description},
+             status = #{status}
+        WHERE id = #{id};     
+	</update>
+		
+	<delete id="delete" parameterType="long">  
+        DELETE FROM t_sec_test WHERE id = #{id}  
+	</delete> 
+	
+	<select id="getCount" resultType="java.lang.Integer">         
+    	select count(id) from t_sec_test 
+    	<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+	</select> 
+	
+	<select id="findList" resultType="TestEntity">
+		SELECT * FROM t_sec_test
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+	</select>
+	<select id="findPage" resultType="TestEntity">
+		SELECT
+			*
+		FROM
+			t_sec_test
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="findListByColumnValues" resultType="TestEntity">
+		SELECT * FROM t_sec_test
+		where ${column} in
+        <foreach collection="valArr" index="index" item="item" open="(" separator="," close=")">
+              #{item}       
+        </foreach>    
+	</select>
+</mapper>

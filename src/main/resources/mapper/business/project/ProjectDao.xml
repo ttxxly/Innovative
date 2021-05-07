@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjj.business.project.dao.ProjectDao">
+	<select id="getById" resultType="ProjectEntity" parameterType="long">
+		SELECT
+			*
+		FROM
+			t_bis_project
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findAll" resultType="ProjectEntity">
+		SELECT * FROM t_bis_project
+	</select>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.xjj.business.project.entity.ProjectEntity">
+		insert into t_bis_project(id,name,overview,cycle,status,content)
+    	values(#{id},#{name},#{overview},#{cycle},#{status},#{content})
+	</insert>
+	
+	<update id="update" parameterType="ProjectEntity">  
+        UPDATE t_bis_project SET 
+             id = #{id},
+             name = #{name},
+             overview = #{overview},
+             cycle = #{cycle},
+             status = #{status},
+             content = #{content}
+        WHERE id = #{id};     
+	</update>
+		
+	<delete id="delete" parameterType="long">  
+        DELETE FROM t_bis_project WHERE id = #{id}  
+	</delete> 
+	
+	<select id="getCount" resultType="java.lang.Integer">         
+    	select count(id) from t_bis_project 
+    	<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+	</select> 
+	
+	<select id="findList" resultType="ProjectEntity">
+		SELECT * FROM t_bis_project
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+	</select>
+	<select id="findPage" resultType="ProjectEntity">
+		SELECT
+			*
+		FROM
+			t_bis_project
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="findListByColumnValues" resultType="ProjectEntity">
+		SELECT * FROM t_bis_project
+		where ${column} in
+        <foreach collection="valArr" index="index" item="item" open="(" separator="," close=")">
+              #{item}       
+        </foreach>    
+	</select>
+</mapper>
