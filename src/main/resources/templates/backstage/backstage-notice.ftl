@@ -10,13 +10,8 @@
       <div class="panel-body">
       	邮箱:  xxx@126.com<br/>
         QQ号:  xxxx<br/>
-        QQ群： xxxx<br/>
       </div>
     </div>
-    
-    
-   
-	
 </@content>
 
 

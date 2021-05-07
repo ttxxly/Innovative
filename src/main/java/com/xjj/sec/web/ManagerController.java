@@ -52,7 +52,7 @@ public class ManagerController extends SpringControllerSupport{
 	@Autowired
 	private UserRoleService userRoleService;
 	
-	@SecPrivilege(title="管理员管理")
+	@SecPrivilege(title="账户管理")
 	@RequestMapping(value = "/index")
 	public String index(Model model) {
 		String page = this.getViewPath("index");

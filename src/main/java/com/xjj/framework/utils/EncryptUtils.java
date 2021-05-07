@@ -11,8 +11,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+
 
 public class EncryptUtils {
 
@@ -75,30 +74,7 @@ public class EncryptUtils {
         //完成 Mac 操作    
         return mac.doFinal(text);    
     }
-	/**
-	 * 用base64算法进行加密
-	 * 
-	 * @param str
-	 *            需要加密的字符串
-	 * @return base64加密后的结果
-	 */
-	public static String Base64Encode(String str) {
-		BASE64Encoder encoder = new BASE64Encoder();
-		return encoder.encode(str.getBytes());
-	}
 
-	/**
-	 * 用base64算法进行解密
-	 * 
-	 * @param str
-	 *            需要解密的字符串
-	 * @return base64解密后的结果
-	 * @throws IOException
-	 */
-	public static String Base64decode(String str) throws IOException {
-		BASE64Decoder encoder = new BASE64Decoder();
-		return new String(encoder.decodeBuffer(str));
-	}
 
 	/**
 	 * 密码加密

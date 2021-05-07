@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Innovative快速开发平台</title>
+        <title>创新创业管理系统</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="${base}/style/passport/assets/bootstrap/css/bootstrap.min.css">
@@ -48,7 +48,7 @@
                         <div class="col-sm-5 col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                        			<h3>Innovative快速开发平台</h3>
+                        			<h3>创新创业管理系统</h3>
                         		</div>
                         		<div class="form-top-right">
                         			<i class="fa fa-lock"></i>
