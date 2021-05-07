@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjj.business.news.dao.NewsDao">
+	<select id="getById" resultType="NewsEntity" parameterType="long">
+		SELECT
+			*
+		FROM
+			t_bis_news
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findAll" resultType="NewsEntity">
+		SELECT * FROM t_bis_news
+	</select>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.xjj.business.news.entity.NewsEntity">
+		insert into t_bis_news(id,title,date,publisher,content)
+    	values(#{id},#{title},#{date},#{publisher},#{content})
+	</insert>
+	
+	<update id="update" parameterType="NewsEntity">  
+        UPDATE t_bis_news SET 
+             id = #{id},
+             title = #{title},
+             date = #{date},
+             publisher = #{publisher},
+             content = #{content}
+        WHERE id = #{id};     
+	</update>
+		
+	<delete id="delete" parameterType="long">  
+        DELETE FROM t_bis_news WHERE id = #{id}  
+	</delete> 
+	
+	<select id="getCount" resultType="java.lang.Integer">         
+    	select count(id) from t_bis_news 
+    	<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+	</select> 
+	
+	<select id="findList" resultType="NewsEntity">
+		SELECT * FROM t_bis_news
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+	</select>
+	<select id="findPage" resultType="NewsEntity">
+		SELECT
+			*
+		FROM
+			t_bis_news
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="findListByColumnValues" resultType="NewsEntity">
+		SELECT * FROM t_bis_news
+		where ${column} in
+        <foreach collection="valArr" index="index" item="item" open="(" separator="," close=")">
+              #{item}       
+        </foreach>    
+	</select>
+</mapper>
