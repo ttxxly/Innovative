@@ -32,5 +32,6 @@
 	<@button type="purple" icon="fa fa-pencil" onclick="XJJ.edit('${base}/business/project/input','修改t_bis_project','${tabId}');">修改</@button>
 	<@button type="danger" icon=" fa fa-trash-o" onclick="XJJ.del('${base}/business/project/delete','删除t_bis_project？',true,{id:'${tabId}'});">删除</@button>
 	
-	<@button type="success" icon="fa fa-cloud-upload" onclick="XJJ.add('${base}/business/project/import','导入文件','${tabId}');">上传</@button>
+	<@button type="success" icon="fa fa-cloud-upload" onclick="XJJ.edit('${base}/business/project/import','导入文件','${tabId}');">上传</@button>
+	<@button type="success" icon="fa fa-cloud-upload" onclick="XJJ.edit('${base}/business/project/export','下载文件','${tabId}');">下载</@button>
 </@content>

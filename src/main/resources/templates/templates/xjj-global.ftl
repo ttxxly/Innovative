@@ -244,7 +244,7 @@ fileInfo="" id="default" uploadPath="" datepath="true" callBackFunc="uploadCallB
 <script type="text/javascript">
     new qq.FileUploader({
         element: document.getElementById('file-uploader-${id}'),
-        action: '${base}//sys/fileupload/upload?path=${uploadPath}&datepath=${datepath}&format=${format}',
+        action: '${base}/sys/fileupload/upload?path=${uploadPath}&datepath=${datepath}&format=${format}',
         deleteUrl:'${base}/components/fileupload/delete/',
 		<#if callBackFunc?exists && callBackFunc!="">
             onComplete: function(id, fileName, responseJSON){

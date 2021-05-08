@@ -24,6 +24,25 @@ public class ProjectEntity extends EntitySupport {
     private String cycle;//cycle
     private String status;//status
     private String content;//content
+    private Long fileId;//文件id
+    private String fileUrl;//文件Url
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public Long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
+    }
+
     /**
      * 返回name
      * @return name

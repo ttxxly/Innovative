@@ -207,25 +207,43 @@
 	 */
 	XJJ.edit = function(url, title, inputFormId) {
 		if (url && title) {
-			if (url.endWith('input') || url.endWith('lock') || url.endWith('unlock') || url.endWith('reset')) {
+			if (url.endWith('input') || url.endWith('lock') || url.endWith('unlock') || url.endWith('reset')
+				|| url.endWith('import')|| url.endWith('export')) {
 				//查询选中的个数
 				var $input =$("#"+inputFormId+XJJ.options.listId).find("input.bscheck:checked");
 				//var $input = $('input.bscheck:checked');
 				var length = $input.length;
 				if (length != 1) {
-					XJJ.msger('请选择要修改的一条数据！');
+					XJJ.msger('请选择要操作的数据！');
 				} else {
-					url += '/' + $input.qdata().id;
-					XJJ.dialog({
-						tabId:inputFormId,
-						url : url,
-						title : title,
-						onOk : function() {
-							XJJ.save({
-								id : inputFormId
-							});
-						}
-					});
+					if (url.endWith('export')) {
+						url += '/' + $input.qdata().id;
+						XJJ.dialog({
+							tabId:inputFormId,
+							url : url,
+							title : title,
+							showCancel : false,
+							showOk : false,
+							onOk : function() {
+								XJJ.save({
+									id : inputFormId
+								});
+							}
+						});
+					}else {
+						url += '/' + $input.qdata().id;
+						XJJ.dialog({
+							tabId:inputFormId,
+							url : url,
+							title : title,
+							onOk : function() {
+								XJJ.save({
+									id : inputFormId
+								});
+							}
+						});
+					}
+
 				}
 			} else {
 				XJJ.dialog({

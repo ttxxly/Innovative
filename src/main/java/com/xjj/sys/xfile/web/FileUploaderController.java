@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,9 @@ import com.xjj.sys.xfile.service.XfileService;
 @Controller
 @RequestMapping("/sys/fileupload")
 public class FileUploaderController extends SpringControllerSupport {
+
+	@Value("${localPath.upload.images}")
+	private String localPath;
 
 	@Autowired
 	private XfileService xfileService;
@@ -65,10 +69,10 @@ public class FileUploaderController extends SpringControllerSupport {
 		boolean overwrite = StringUtils.parseBoolean(request.getParameter("overwrite"));//文件名重名，是否覆盖
 		boolean datepath = StringUtils.parseBoolean(request.getParameter("datepath"));//路径名称加入日期
 		
-		String uploadPath = FileUtils.getUploadRealPath(filePath);//存放的真实路径
-		if(datepath){
+		String uploadPath = localPath + filePath;//存放的真实路径
+		/*if(datepath){
 			uploadPath += FileUtils.getDatePath()+"/";
-		}
+		}*/
 		String fileFullPath = "";//文件存储的名
 		String fileName = "";//文件原始的名字
 		//创建文件路径
@@ -161,7 +165,7 @@ public class FileUploaderController extends SpringControllerSupport {
       //保存成功以后，存储记录
         XfileEntity xfile = new XfileEntity();
 		xfile.setFilePath(fileFullPath);
-		xfile.setUrl(FileUtils.realPath2Path(fileFullPath));
+		xfile.setUrl(fileFullPath.substring(localPath.length()));
 		xfile.setFileRealname(FileUtils.getFileName(fileFullPath));
 		xfile.setFileTitle(fileName);
 		File fileLocal = new File(fileFullPath);
