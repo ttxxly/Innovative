@@ -226,16 +226,31 @@ public class ManagerController extends SpringControllerSupport{
 	 */
 	@RequestMapping("/save")
 	public @ResponseBody XjjJson  save(@ModelAttribute XjjUser user){
-		
-		if(user.isNew())
-		{
-			user.setCreateDate(new Date());
-			user.setUserType(XJJConstants.USER_TYPE_ADMIN);
-			userService.save(user);
-		}else
-		{
-			userService.update(user);
+
+		try {
+			if(user.isNew())
+			{
+				//查询是否有相同用户
+				XJJParameter param = new XJJParameter();
+				param.addQuery("query.loginName@eq@s", user.getLoginName());
+				param.addQuery("query.userType@eq@s",XJJConstants.USER_TYPE_ADMIN );
+				XjjUser xjjUser = userService.getByParam(param);
+
+				if (xjjUser != null) {
+					return XjjJson.error("保存失败，存在相同用户名");
+				}else {
+					user.setCreateDate(new Date());
+					user.setUserType(XJJConstants.USER_TYPE_ADMIN);
+					userService.save(user);
+				}
+			}else
+			{
+				userService.update(user);
+			}
+		}catch (Exception e) {
+			return XjjJson.error("保存失败，请查看日志");
 		}
+
 		return XjjJson.success("保存成功");
 	}
 

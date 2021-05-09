@@ -17,8 +17,8 @@
 	</select>
 	
 	<insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.xjj.business.project.entity.ProjectEntity">
-		insert into t_bis_project(id,name,overview,cycle,status,content,fileId, fileUrl)
-    	values(#{id},#{name},#{overview},#{cycle},#{status},#{content},#{fileId},#{fileUrl})
+		insert into t_bis_project(id,name,overview,projectyear,status,content,fileid,fileurl,declarant,declarestatus,auditor,auditstatus,appraise,adviser)
+    	values(#{id},#{name},#{overview},#{projectyear},#{status},#{content},#{fileid},#{fileurl},#{declarant},#{declarestatus},#{auditor},#{auditstatus},#{appraise},#{adviser})
 	</insert>
 	
 	<update id="update" parameterType="ProjectEntity">  
@@ -26,11 +26,17 @@
              id = #{id},
              name = #{name},
              overview = #{overview},
-             cycle = #{cycle},
+             projectyear = #{projectyear},
              status = #{status},
              content = #{content},
-             fileId = #{fileId},
-             fileUrl = #{fileUrl}
+             fileid = #{fileid},
+             fileurl = #{fileurl},
+             declarant = #{declarant},
+             declarestatus = #{declarestatus},
+             auditor = #{auditor},
+             auditstatus = #{auditstatus},
+             appraise = #{appraise},
+             adviser = #{adviser}
         WHERE id = #{id};
 	</update>
 		

@@ -1,12 +1,12 @@
 /****************************************************
- * Description: DAO for t_bis_project
+ * Description: DAO for 项目管理
  * Copyright:   Copyright (c) 2021
  * Company:     xjj
  * @author      zhanghejie
  * @version     1.0
  * @see
 	HISTORY
-    *  2021-05-06 zhanghejie Create File
+    *  2021-05-09 zhanghejie Create File
 **************************************************/
 package com.xjj.business.project.dao;
 

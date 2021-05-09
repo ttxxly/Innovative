@@ -43,6 +43,11 @@ public class XJJConstants{
 	public static final String COMMON_STATUS_VALID = "valid";
 	public static final String COMMON_STATUS_INVALID = "invalid";
 	public static final String[] COMMON_STATUS_LIST = {COMMON_STATUS_VALID,COMMON_STATUS_INVALID};
+
+	public static final String AUDIT_STATUS_VALID = "succeed";
+	public static final String AUDIT_STATUS_INVALID = "failure";
+	public static final String AUDIT_STATUS_WAITING = "wait";
+	public static final String[] AUDIT_STATUS_LIST = {AUDIT_STATUS_VALID,AUDIT_STATUS_INVALID, AUDIT_STATUS_WAITING};
 	
 	
 	public static final String COMMON_YESNO_YES = "yes";

@@ -11,7 +11,11 @@
 		WHERE
 			id = #{id}
 	</select>
-	
+	<select id="findList" resultType="UserRoleEntity">
+		SELECT * FROM t_sec_user_role
+		<include refid="com.xjj.framework.dao.CommonDao.queryParam"/>
+		<include refid="com.xjj.framework.dao.CommonDao.queryOrder"/>
+	</select>
 	<select id="findPage" resultType="UserRoleEntity">
 		SELECT
 			*

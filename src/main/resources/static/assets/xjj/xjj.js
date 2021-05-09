@@ -208,7 +208,8 @@
 	XJJ.edit = function(url, title, inputFormId) {
 		if (url && title) {
 			if (url.endWith('input') || url.endWith('lock') || url.endWith('unlock') || url.endWith('reset')
-				|| url.endWith('import')|| url.endWith('export')) {
+				|| url.endWith('import') || url.endWith('export') || url.endWith('allot') || url.endWith('audit')
+				|| url.endWith('appraise')) {
 				//查询选中的个数
 				var $input =$("#"+inputFormId+XJJ.options.listId).find("input.bscheck:checked");
 				//var $input = $('input.bscheck:checked');
