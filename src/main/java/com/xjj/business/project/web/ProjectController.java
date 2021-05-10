@@ -10,6 +10,8 @@ HISTORY
  **************************************************/
 package com.xjj.business.project.web;
 
+import com.xjj.business.msg.entity.MsgEntity;
+import com.xjj.business.msg.service.MsgService;
 import com.xjj.business.project.entity.ProjectEntity;
 import com.xjj.business.project.service.ProjectService;
 import com.xjj.common.XJJConstants;
@@ -43,6 +45,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -54,6 +57,8 @@ public class ProjectController extends SpringControllerSupport {
     private UserRoleService userRoleService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MsgService msgService;
     @Autowired
     private XfileDao xfileDao;
 
@@ -125,15 +130,30 @@ public class ProjectController extends SpringControllerSupport {
     XjjJson save(@ModelAttribute ProjectEntity project) {
 
         validateSave(project);
-        if (project.isNew()) {
-            //project.setCreateDate(new Date());
-            project.setStatus(XJJConstants.AUDIT_STATUS_WAITING);
-            project.setAuditstatus(XJJConstants.AUDIT_STATUS_WAITING);
-            project.setDeclarestatus(XJJConstants.AUDIT_STATUS_WAITING);
-            projectService.save(project);
-        } else {
-            projectService.update(project);
+        try {
+            if (project.isNew()) {
+                //查询是否有相同用户
+                XJJParameter param = new XJJParameter();
+                param.addQuery("query.name@eq@s", project.getName());
+                ProjectEntity projectEntity = projectService.getByParam(param);
+
+                if (projectEntity != null) {
+                    return XjjJson.error("保存失败，此项目已被申报过!!!");
+                }else {
+                    //project.setCreateDate(new Date());
+                    project.setStatus(XJJConstants.AUDIT_STATUS_WAITING);
+                    project.setAuditstatus(XJJConstants.AUDIT_STATUS_WAITING);
+                    project.setDeclarestatus(XJJConstants.AUDIT_STATUS_WAITING);
+                    projectService.save(project);
+                }
+
+            } else {
+                projectService.update(project);
+            }
+        }catch (Exception e) {
+            return XjjJson.error("保存失败，请联系管理员");
         }
+
         return XjjJson.success("保存成功");
     }
 
@@ -345,12 +365,23 @@ public class ProjectController extends SpringControllerSupport {
 
 
         System.out.println("审核项目开始----");
+        //获取当前登录用户
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        ManagerInfo info = (ManagerInfo)request.getSession().getAttribute(XJJConstants.SESSION_MANAGER_INFO_KEY);
+
 
         try {
             ProjectEntity project = projectService.getById(projectId);
             project.setAuditstatus(auditstatus);
             if ("succeed".equals(auditstatus)) {
                 project.setStatus("succeed");
+                //保存消息
+                MsgEntity msg = new MsgEntity();
+                msg.setSender(info.getLoginName());
+                msg.setSendtime(new Date());
+                msg.setMsg("祝贺，该项目审核成功！！！");
+                msg.setReceiver(project.getDeclarant());
+                msgService.save(msg);
             }
             if ("failure".equals(auditstatus)) {
                 project.setStatus("failure");

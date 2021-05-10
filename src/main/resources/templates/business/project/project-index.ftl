@@ -56,6 +56,7 @@
 			<#if (item) == "8">
 				<@button type="info" icon="glyphicon glyphicon-plus" onclick="XJJ.add('${base}/business/project/input','添加项目管理','${tabId}');">增加</@button>
 				<@button type="purple" icon="fa fa-pencil" onclick="XJJ.edit('${base}/business/project/input','修改项目管理','${tabId}');">修改</@button>
+				<@button type="danger" icon=" fa fa-trash-o" onclick="XJJ.del('${base}/business/project/delete','删除项目管理？',true,{id:'${tabId}'});">删除</@button>
 			</#if>
 		</#list>
 	</#if>
