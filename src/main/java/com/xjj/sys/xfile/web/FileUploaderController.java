@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +48,9 @@ public class FileUploaderController extends SpringControllerSupport {
 
 	@Value("${localPath.upload.images}")
 	private String localPath;
+
+	@Value("${localPath.upload.deploy.images}")
+	private String localUploadPath;
 
 	@Autowired
 	private XfileService xfileService;
@@ -70,6 +75,7 @@ public class FileUploaderController extends SpringControllerSupport {
 		boolean datepath = StringUtils.parseBoolean(request.getParameter("datepath"));//路径名称加入日期
 		
 		String uploadPath = localPath + filePath;//存放的真实路径
+		String uploaDeployPath = localUploadPath + filePath;//存放部署路径
 		/*if(datepath){
 			uploadPath += FileUtils.getDatePath()+"/";
 		}*/
@@ -78,6 +84,7 @@ public class FileUploaderController extends SpringControllerSupport {
 		//创建文件路径
 		try {
 			FileUtils.createFolder(uploadPath);
+			FileUtils.createFolder(uploaDeployPath);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -161,8 +168,15 @@ public class FileUploaderController extends SpringControllerSupport {
 	        	}
 			}
         }
-        
-      //保存成功以后，存储记录
+
+        //文件copy
+		FileCopyUtils.copy(Files.readAllBytes(new File(fileFullPath).toPath()), new FileOutputStream( getFileValidName( uploaDeployPath,fileName, format, overwrite)));
+		try {
+			Thread.sleep(3 * 1000);
+		} catch (InterruptedException ie) {
+			Thread.currentThread().interrupt();
+		}
+		//保存成功以后，存储记录
         XfileEntity xfile = new XfileEntity();
 		xfile.setFilePath(fileFullPath);
 		xfile.setUrl(fileFullPath.substring(localPath.length()));
